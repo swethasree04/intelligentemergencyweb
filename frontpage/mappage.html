@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emergency OTP Request</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('bgimage.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    #otpForm {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, select, button {
+      padding: 10px;
+      margin-top: 8px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: lightgreen;
+    }
+
+    .terms-container {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+      color: #eee;
+    }
+
+    .checkbox {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="otpForm">
+    <h2>Request Emergency OTP</h2>
+
+    <label for="hospitalSelect">Select Hospital:</label>
+    <select id="hospitalSelect" required>
+      <option value="">-- Select Hospital --</option>
+      <option value="Rela Hospital" selected>Rela Hospital</option>
+      <option value="Apollo Hospitals">Apollo Hospitals</option>
+      <option value="MIOT International">MIOT International</option>
+      <option value="Fortis Malar Hospital">Fortis Malar Hospital</option>
+      <option value="Sri Ramachandra Medical Centre">Sri Ramachandra Medical Centre</option>
+      <option value="Global Hospitals">Global Hospitals</option>
+      <option value="SIMS Hospital">SIMS Hospital</option>
+      <option value="Chennai National Hospital">Chennai National Hospital</option>
+      <option value="Kauvery Hospital">Kauvery Hospital</option>
+      <option value="Billroth Hospitals">Billroth Hospitals</option>
+    </select>
+
+    <label for="userEmail">Your Email:</label>
+    <input type="email" id="userEmail" placeholder="Enter your email" required />
+
+    <button type="button" onclick="requestOtp()">Send OTP</button>
+
+    <label for="otpCode">Enter OTP:</label>
+    <input type="text" id="otpCode" placeholder="Enter received OTP" />
+
+    <div class="terms-container">
+      <p>
+        ⚠️ By verifying the OTP, you agree that misuse of emergency mode is a punishable offense.
+        You may be held in <b>traffic room custody</b> if this system is used for <b>false alerts, criminal activity, or impersonation</b>.
+      </p>
+      <label class="checkbox">
+        <input type="checkbox" id="agreeTerms" /> I Agree to the Terms and Conditions
+      </label>
+    </div>
+
+    <button type="button" onclick="verifyOtp()">Verify OTP</button>
+
+    <p id="message"></p>
+  </form>
+
+  <script>
+    async function requestOtp() {
+      const hospitalName = document.getElementById("hospitalSelect").value;
+      const userEmail = document.getElementById("userEmail").value.trim();
+      document.getElementById("message").innerText = "";
+
+      if (!hospitalName || !userEmail) {
+        document.getElementById("message").innerText = "Please select a hospital and enter your email.";
+        return;
+      }
+
+      console.log("🔄 Sending OTP to:", userEmail, "from hospital:", hospitalName);
+
+      try {
+        const res = await fetch("http://127.0.0.1:5001/api/request-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ hospitalName, userEmail })
+        });
+
+        const text = await res.text();
+        document.getElementById("message").innerText = text;
+      } catch (error) {
+        console.error("❌ Request OTP failed:", error);
+        document.getElementById("message").innerText = "❌ Failed to connect to server.";
+      }
+    }
+
+    async function verifyOtp() {
+      const userEmail = document.getElementById("userEmail").value.trim();
+      const otpCode = document.getElementById("otpCode").value.trim();
+      const agreed = document.getElementById("agreeTerms").checked;
+      const hospitalName = document.getElementById("hospitalSelect").value;
+      document.getElementById("message").innerText = "";
+
+      if (!userEmail || !otpCode) {
+        document.getElementById("message").innerText = "Please enter your email and OTP.";
+        return;
+      }
+
+      if (!agreed) {
+        document.getElementById("message").innerText = "⚠️ You must agree to the terms before proceeding.";
+        return;
+      }
+
+      try {
+        const res = await fetch("http://127.0.0.1:5001/api/verify-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userEmail, code: otpCode })
+        });
+
+        const text = await res.text();
+        document.getElementById("message").innerText = text;
+
+        if (text.includes("✅ OTP verified")) {
+          alert("✅ OTP Verified! Emergency Mode is now ON.");
+          sessionStorage.setItem("verifiedHospital", hospitalName);
+          sessionStorage.setItem("verifiedEmail", userEmail);
+          window.location.href = "map.html";
+        }
+      } catch (error) {
+        console.error("❌ OTP verification failed:", error);
+        document.getElementById("message").innerText = "❌ Failed to connect to server.";
+      }
+    }
+  </script>
+
+</body>
+</html>

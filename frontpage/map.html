@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Map Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .map-container {
+      position: relative;
+      width: 80%;
+      height: 400px;
+      margin: 20px auto;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .proceed-button {
+      position: absolute;
+      top: 10px; /* Adjust as needed */
+      right: 10px; /* Adjust as needed */
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #28A745;
+      color: white;
+      z-index: 10; /* Ensure the button is above the iframe */
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Directions to Guindy, Chennai</h2>
+
+  <!-- Map Container with Overlay Button -->
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31099.63825399274!2d80.21967235!3d13.0066856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267709aa40a7d%3A0xca348695fc512750!2sGuindy%2C%20Chennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1717640921407!5m2!1sen!2sin"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <button class="proceed-button" onclick="goToMapPage()">Proceed</button>
+  </div>
+
+  <script>
+    function goToMapPage() {
+      // Redirect to mapppage.html
+      window.location.href = "mappage.html";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('bgimage.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      width: 350px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Register</h2>
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email ID" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="text" id="mobile" placeholder="Mobile Number" required>
+      <input type="text" id="aadhar" placeholder="Aadhar Number" required>
+      <input type="text" id="vehicle" placeholder="Vehicle Number" required>
+      <input type="text" id="license" placeholder="License Number" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const userData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        mobile: document.getElementById("mobile").value,
+        aadhar: document.getElementById("aadhar").value,
+        vehicle: document.getElementById("vehicle").value,
+        license: document.getElementById("license").value
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
+      alert("Registration successful! Redirecting to login page.");
+      window.location.href = "loginpage.html";
+    });
+  </script>
+</body>
+</html>

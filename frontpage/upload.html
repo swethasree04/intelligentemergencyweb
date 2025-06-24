@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Proof Verification</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-image: url('bgimage.jpg'); /* 🔁 Replace with your actual image filename */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .upload-container {
+      border: 2px dashed #ccc;
+      padding: 30px;
+      text-align: center;
+      margin: 20px 0;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    #fileInput {
+      display: none;
+    }
+    .file-label {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .file-label:hover {
+      background-color: #45a049;
+    }
+    #fileName {
+      margin-top: 15px;
+      color: #666;
+      font-size: 14px;
+    }
+    button[type="button"] {
+      display: block;
+      width: 100%;
+      padding: 20px; /* Increased padding for a bigger button */
+      background-color: #007BFF; /* Blue color */
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 18px; /* Increased font size */
+      margin-top: 25px;
+      transition: background-color 0.3s;
+    }
+    button[type="button"]:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+    button[type="button"]:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    #resultContainer {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 5px;
+      display: none;
+    }
+    .success {
+      background-color: #dff0d8;
+      color: #3c763d;
+      border: 1px solid #d6e9c6;
+    }
+    .error {
+      background-color: #f2dede;
+      color: #a94442;
+      border: 1px solid #f5c6cb;
+    }
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top: 4px solid #3498db;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Emergency Proof Verification</h1>
+
+    <form id="uploadForm" onsubmit="return false;">
+      <div class="upload-container">
+        <input type="file" id="fileInput" name="proofImage" accept="image/*,.pdf,.doc,.docx">
+        <label for="fileInput" class="file-label">Choose File</label>
+        <div id="fileName">No file selected</div>
+      </div>
+
+      <button type="button" id="submitBtn">Verify Emergency Proof</button>
+      <div class="spinner" id="spinner"></div>
+    </form>
+
+    <div id="resultContainer"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const fileInput = document.getElementById('fileInput');
+      const fileNameDisplay = document.getElementById('fileName');
+      const submitBtn = document.getElementById('submitBtn');
+      const resultContainer = document.getElementById('resultContainer');
+      const spinner = document.getElementById('spinner');
+
+      // Update file name display when file is selected
+      fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+          fileNameDisplay.textContent = 'Selected: ' + this.files[0].name;
+          fileNameDisplay.style.color = '#2196F3';
+          fileNameDisplay.style.fontWeight = 'bold';
+        } else {
+          fileNameDisplay.textContent = 'No file selected';
+          fileNameDisplay.style.color = '#666';
+          fileNameDisplay.style.fontWeight = 'normal';
+        }
+      });
+
+      // Handle form submission
+      submitBtn.addEventListener('click', function() {
+        if (!fileInput.files || fileInput.files.length === 0) {
+          showResult('Please select a file first', false);
+          return;
+        }
+
+        // Show loading spinner
+        submitBtn.disabled = true;
+        spinner.style.display = 'block';
+        resultContainer.style.display = 'none';
+
+        // Simulate server response (replace with actual API call)
+        setTimeout(function() {
+          // This is just a simulation - replace with real API call
+          const file = fileInput.files[0];
+          const isSuccess = Math.random() > 0.3; // 70% chance of success for demo
+          
+          if (isSuccess) {
+            showResult('✅ Proof verified successfully! and tracking is turned off', true);
+          } else {
+            showResult('❌ Verification failed. Please try again.', false);
+          }
+          
+          submitBtn.disabled = false;
+          spinner.style.display = 'none';
+        }, 1500);
+      });
+
+      function showResult(message, isSuccess) {
+        resultContainer.textContent = message;
+        resultContainer.className = isSuccess ? 'success' : 'error';
+        resultContainer.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

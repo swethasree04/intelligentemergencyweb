@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emergency OTP Verification</title>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 40px;
+    }
+    h2 {
+      color: #444;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 300px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🚨 Emergency OTP System</h2>
+
+  <!-- Email input -->
+  <label>Email:</label><br />
+  <input type="email" id="email" placeholder="Enter your email" /><br />
+  <button onclick="sendOTP()">Send OTP</button><br><br>
+
+  <!-- OTP input -->
+  <label>Enter OTP:</label><br />
+  <input type="text" id="otp" placeholder="Enter OTP here" /><br />
+  <button onclick="verifyOTP()">Verify OTP</button>
+
+  <p id="result"></p>
+
+  <script>
+    function sendOTP() {
+      const email = document.getElementById('email').value;
+
+      fetch('http://localhost:5000/api/otp/send', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email: email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('result').innerText = data.message || 'OTP sent!';
+      })
+      .catch(err => {
+        document.getElementById('result').innerText = '❌ Error sending OTP';
+      });
+    }
+
+    function verifyOTP() {
+      const email = document.getElementById('email').value;
+      const otp = document.getElementById('otp').value;
+
+      fetch('http://localhost:5000/api/otp/verify', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email: email, otp: otp })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById('result').innerText = '✅ OTP Verified. Emergency Mode Activated.';
+          startEmergencyMode(email); // Start tracking location
+        } else {
+          document.getElementById('result').innerText = '❌ Invalid OTP';
+        }
+      })
+      .catch(err => {
+        document.getElementById('result').innerText = '❌ Error verifying OTP';
+      });
+    }
+
+    function startEmergencyMode(email) {
+      alert("Emergency mode activated. Live location tracking started.");
+
+      navigator.geolocation.watchPosition(function (position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        console.log("Sending live location: ", lat, lng);
+
+        fetch('http://localhost:5000/api/emergency/location', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            latitude: lat,
+            longitude: lng
+          })
+        });
+      }, function (error) {
+        alert("❌ GPS Error: " + error.message);
+      }, {
+        enableHighAccuracy: true
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('bgimage.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      width: 350px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 10px;
+      cursor: pointer;
+      color: #007bff;
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2 id="formTitle">Login</h2>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Email ID" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button type="submit">Login</button>
+      <div class="link" onclick="showForgotForm()">Forgot Password?</div>
+    </form>
+
+    <!-- Forgot Password Form -->
+    <form id="forgotForm" class="hidden">
+      <input type="email" id="forgotEmail" placeholder="Enter your registered Email ID" required>
+      <button type="button" onclick="sendOTP()">Send OTP</button>
+    </form>
+
+    <!-- OTP Verification Form -->
+    <form id="otpForm" class="hidden">
+      <input type="text" id="otpInput" placeholder="Enter OTP" required>
+      <button type="button" onclick="verifyOTP()">Verify OTP</button>
+    </form>
+
+    <!-- Reset Password Form -->
+    <form id="resetForm" class="hidden">
+      <input type="password" id="newPassword" placeholder="New Password" required>
+      <button type="button" onclick="resetPassword()">Reset Password</button>
+    </form>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const forgotForm = document.getElementById("forgotForm");
+    const otpForm = document.getElementById("otpForm");
+    const resetForm = document.getElementById("resetForm");
+    const formTitle = document.getElementById("formTitle");
+
+    let generatedOTP = "";
+    let currentEmail = "";
+
+    // Login logic
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+
+      if (storedUser && email === storedUser.email && password === storedUser.password) {
+        alert("Login successful!");
+        window.location.href = "homepage.html";
+      } else {
+        alert("Incorrect email or password.");
+      }
+    });
+
+    // Forgot Password Flow
+    function showForgotForm() {
+      formTitle.innerText = "Forgot Password";
+      loginForm.classList.add("hidden");
+      forgotForm.classList.remove("hidden");
+    }
+
+    function sendOTP() {
+      const email = document.getElementById("forgotEmail").value;
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+
+      if (storedUser && email === storedUser.email) {
+        generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+        currentEmail = email;
+        alert("OTP sent (Simulated): " + generatedOTP);
+        forgotForm.classList.add("hidden");
+        otpForm.classList.remove("hidden");
+      } else {
+        alert("Email not found.");
+      }
+    }
+
+    function verifyOTP() {
+      const enteredOTP = document.getElementById("otpInput").value;
+      if (enteredOTP === generatedOTP) {
+        alert("OTP verified!");
+        otpForm.classList.add("hidden");
+        resetForm.classList.remove("hidden");
+      } else {
+        alert("Invalid OTP.");
+      }
+    }
+
+    function resetPassword() {
+      const newPassword = document.getElementById("newPassword").value;
+      let storedUser = JSON.parse(localStorage.getItem("user"));
+
+      if (storedUser && currentEmail === storedUser.email) {
+        storedUser.password = newPassword;
+        localStorage.setItem("user", JSON.stringify(storedUser));
+        alert("Password reset successful!");
+
+        // Return to login
+        resetForm.classList.add("hidden");
+        loginForm.classList.remove("hidden");
+        formTitle.innerText = "Login";
+      } else {
+        alert("Something went wrong.");
+      }
+    }
+  </script>
+</body>
+</html>

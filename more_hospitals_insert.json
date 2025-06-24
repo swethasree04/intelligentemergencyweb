@@ -1,0 +1,382 @@
+[
+  {
+    "name": "Apollo Hospitals",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2518,
+        13.0604
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "MIOT International",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.1692,
+        13.0111
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Fortis Malar Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2577,
+        13.0066
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Sri Ramachandra Medical Centre",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.149,
+        13.034
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Global Hospitals",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2263,
+        12.9092
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "SIMS Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2118,
+        13.0533
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Vijaya Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2122,
+        13.0496
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Madras Medical College",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2764,
+        13.0878
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Kauvery Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2502,
+        13.0421
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Prashanth Super Speciality Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2483,
+        13.0516
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Billroth Hospitals",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2371,
+        13.0799
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "SRM Medical College Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.0437,
+        12.8191
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Chettinad Hospital and Research Institute",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2297,
+        12.8223
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Stanley Medical College Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2906,
+        13.1057
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Dr. Mehta's Hospitals",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2495,
+        13.0669
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Hindu Mission Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.145,
+        12.9502
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "HOSMAT Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2266,
+        13.0085
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Chennai National Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.2752,
+        13.0794
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  },
+  {
+    "name": "Sugam Hospital",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        80.1847,
+        13.1135
+      ]
+    },
+    "emailFrom": "testotphospital@gmail.com",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "testotphospital@gmail.com",
+        "pass": "rlqfmboctfcvpteu"
+      }
+    }
+  }
+]
