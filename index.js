@@ -3,15 +3,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const hospitalRoutes = require('./server/routes/hospitals');
-const otpRoutes = require('./server/routes/otpRoutes'); // ✅ Add this line
+const otpRoutes = require('./server/routes/otpRoutes');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// ✅ ADD THIS ROUTE TO FIX "Cannot GET /"
+app.get('/', (req, res) => {
+  res.send('🚨 Intelligent Emergency Web API is Live!');
+});
+
 app.use('/api/hospitals', hospitalRoutes);
-app.use('/api/otp', otpRoutes); // ✅ Connect OTP route here
+app.use('/api/otp', otpRoutes);
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
