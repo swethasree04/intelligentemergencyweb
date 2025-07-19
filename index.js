@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'frontpage')));
 
 // ✅ Serve register.html when visiting root URL
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontpage', 'register.html'));
+  res.sendFile(path.join(__dirname, 'frontpage', 'register_page.html'));
 });
 
 // API routes
