@@ -1,65 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Map Page</title>
+  <meta charset="UTF-8" />
+  <title>Emergency Route</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .map-container {
-      position: relative;
-      width: 80%;
-      height: 400px;
-      margin: 20px auto;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .proceed-button {
-      position: absolute;
-      top: 10px; /* Adjust as needed */
-      right: 10px; /* Adjust as needed */
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background-color: #28A745;
-      color: white;
-      z-index: 10; /* Ensure the button is above the iframe */
+    #map {
+      height: 100vh;
+      width: 100vw;
     }
   </style>
 </head>
 <body>
 
-  <h2>Directions to Guindy, Chennai</h2>
+<div id="map"></div>
 
-  <!-- Map Container with Overlay Button -->
-  <div class="map-container">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31099.63825399274!2d80.21967235!3d13.0066856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267709aa40a7d%3A0xca348695fc512750!2sGuindy%2C%20Chennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1717640921407!5m2!1sen!2sin"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-    <button class="proceed-button" onclick="goToMapPage()">Proceed</button>
-  </div>
+<script>
+  // ✅ Coordinates (lat, lng)
+  const userCoords = [12.9678, 80.1115]; // Pammal
+  const hospitalCoords = [12.960997, 80.145234]; // Rela Hospital, Chrompet
 
-  <script>
-    function goToMapPage() {
-      // Redirect to mapppage.html
-      window.location.href = "mappage.html";
-    }
-  </script>
+  // Initialize map
+  const map = L.map('map');
+
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Markers
+  L.marker(userCoords).addTo(map).bindPopup("🚑 Your Location (Pammal)").openPopup();
+  L.marker(hospitalCoords).addTo(map).bindPopup("🏥 Rela Hospital (Chrompet)");
+
+  // Fit map to both points
+  map.fitBounds(L.latLngBounds([userCoords, hospitalCoords]), { padding: [50, 50] });
+
+  // OpenRouteService API
+  const apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImVlOTg2MWQ1NmU4YzVhZDExM2YxMzAzNDA5ZGE3NzVjODFjOWRmMjBlMjM5YWZhMGM4OGFhMjRhIiwiaCI6Im11cm11cjY0In0="; // 🔐 Replace with your actual key
+  const routeUrl = "https://api.openrouteservice.org/v2/directions/driving-car/geojson";
+
+  const body = {
+    coordinates: [
+      [80.1115, 12.9678],      // from: user (lng, lat)
+      [80.145234, 12.960997]   // to: hospital (lng, lat)
+    ]
+  };
+
+  fetch(routeUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": apiKey
+    },
+    body: JSON.stringify(body)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("API call failed");
+    return res.json();
+  })
+  .then(data => {
+    const coords = data.features[0].geometry.coordinates.map(c => [c[1], c[0]]);
+    L.polyline(coords, { color: "red", weight: 5 }).addTo(map);
+  })
+  .catch(err => {
+    console.error("❌ Route error:", err);
+    alert("❌ Could not load route. Check your API key or network.");
+  });
+</script>
 
 </body>
 </html>
